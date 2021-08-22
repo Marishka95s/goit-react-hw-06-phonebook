@@ -1,9 +1,11 @@
 // import React, { useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/phonebook/contacts-actions';
 import styles from './ContactForm.module.css';
 
-export default function ContactForm({ onAddContact }) {
+function ContactForm({ onAddContact }) {
     const [name, setName] = useLocalStorage('name', '');
     const [number, setNumber] = useLocalStorage('number', '');  
 
@@ -53,4 +55,10 @@ export default function ContactForm({ onAddContact }) {
 ContactForm.propTypes = {
     name: PropTypes.string,
     number: PropTypes.number,
-  };
+};
+
+const mapDispatchToProps = dispatch => ({
+    onAddContact: (name, number) => dispatch(contactsActions.addContact(name, number)),
+})
+
+export default connect(null, mapDispatchToProps)(ContactForm);

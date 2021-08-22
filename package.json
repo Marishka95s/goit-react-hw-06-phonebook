@@ -8,13 +8,17 @@
     "url": "git+https://github.com/Marishka95s/goit-react-hw-06-phonebook.git"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "gh-pages": "^3.2.3",
+    "modern-normalize": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.1",
     "shortid": "^2.2.16",
     "web-vitals": "^1.0.1"
   },
@@ -43,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.7.0",
+    "redux-devtools-extension": "^2.13.9"
   }
 }
