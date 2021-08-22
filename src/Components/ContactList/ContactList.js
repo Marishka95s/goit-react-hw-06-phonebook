@@ -20,7 +20,6 @@ ContactList.propTypes = {
     name: PropTypes.string,
     number: PropTypes.string,
 }
-// const visibleContacts = (items, filter) => items.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
 
 const mapDispatchToProps = dispatch => ({
     onDeleteContact: (id) => dispatch(contactsActions.deleteContact(id)),

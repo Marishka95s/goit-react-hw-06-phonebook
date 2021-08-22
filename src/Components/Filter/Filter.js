@@ -11,7 +11,7 @@ const Filter = ({ value, onChange }) => (
     </label>
 );
 Filter.propTypes = {
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
 }
 
 const mapDispatchToProps = dispatch => ({
