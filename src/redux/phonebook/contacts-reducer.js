@@ -9,18 +9,21 @@ const initialContacts = [
   ]
 const loc = JSON.parse(window.localStorage.getItem('contacts'));
 console.log(loc)
-const items = (state = (JSON.parse(window.localStorage.getItem('contacts')) || initialContacts), { type, payload }) => {
+const items = (state = (JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts), { type, payload }) => {
     switch (type) {
         case ContactsTypes.ADD:
-            const isInContacts = state.some(contact => contact.name === payload.name)
+            const isInContacts = state.some(contact => contact.name === payload.name);
             if (isInContacts) { 
                 alert(`${payload.name} is already in contacts.`); return state;
             }
-            // window.localStorage.setItem('contacts', JSON.stringify(state.contacts));            
-            return [...state, payload]; 
+            const renewableState = [...state, payload];
+            window.localStorage.setItem('contacts', JSON.stringify(renewableState));             
+            return renewableState; 
        
         case ContactsTypes.DELETE:
-            return state.filter(contact => contact.id !== payload.contactId);
+            const filtredState = state.filter(contact => contact.id !== payload)
+            window.localStorage.setItem('contacts', JSON.stringify(filtredState));
+            return filtredState;
     
         default:
             return state;
