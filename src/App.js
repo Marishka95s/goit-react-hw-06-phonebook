@@ -5,9 +5,10 @@ import { useSelector } from 'react-redux';
 import ContactForm from './Components/ContactForm';
 import ContactList from './Components/ContactList';
 import Filter from './Components/Filter';
+import { getTotalContacts } from './redux/phonebook/contacts-selectors'
 
 export default function App() {
-  const totalContacts = useSelector(state => state.contacts.items.length);
+  const totalContacts = useSelector(getTotalContacts);
 
    return (
     <div className="App">
