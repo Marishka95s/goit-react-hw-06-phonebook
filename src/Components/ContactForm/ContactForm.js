@@ -1,13 +1,13 @@
-// import React, { useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import React, { useState } from 'react';
+// import useLocalStorage from '../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import contactsActions from '../../redux/phonebook/contacts-actions';
 import styles from './ContactForm.module.css';
 
 function ContactForm({ onAddContact }) {
-    const [name, setName] = useLocalStorage('name', '');
-    const [number, setNumber] = useLocalStorage('number', '');  
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');  
 
     const handleChange = event => {
         const { name, value } = event.target;
@@ -31,13 +31,17 @@ function ContactForm({ onAddContact }) {
     }
 
     return(
-        <form className={styles.form} >
+        <form className={styles.form} method="post">
             <label className={styles.label}>Name: 
-                <input type="text" name="name" pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$" title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п." 
-                className={styles.input}
-                value={name}
-                onChange={handleChange}
-                required />
+            <input className={styles.input}
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-ЯІіЇїҐґ]+(([' -][a-zA-Zа-яА-ЯІіЇїҐґ ])?[a-zA-Zа-яА-ЯІіЇїҐґ]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            required
+            onChange={handleChange}
+            value={name}
+          />
             </label>
             <label className={styles.label}>Number: 
                 <input type="tel" name="number"
