@@ -24,11 +24,9 @@ export default function ContactForm() {
         }
     };
 
-    const onAddContact = () => dispatch(contactsActions.addContact(name, number));
-
     const handleSubmit = event => {
         event.preventDefault();
-        onAddContact(name, number);
+        dispatch(contactsActions.addContact(name, number));
         setName('');
         setNumber('');
     }
