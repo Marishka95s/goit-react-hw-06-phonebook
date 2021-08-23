@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 // import useLocalStorage from '../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch  } from 'react-redux';
 import contactsActions from '../../redux/phonebook/contacts-actions';
 import styles from './ContactForm.module.css';
 
-function ContactForm({ onAddContact }) {
+export default function ContactForm() {
+    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');  
 
@@ -22,6 +23,8 @@ function ContactForm({ onAddContact }) {
                 return;
         }
     };
+
+    const onAddContact = () => dispatch(contactsActions.addContact(name, number));
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -61,8 +64,3 @@ ContactForm.propTypes = {
     number: PropTypes.number,
 };
 
-const mapDispatchToProps = dispatch => ({
-    onAddContact: (name, number) => dispatch(contactsActions.addContact(name, number)),
-})
-
-export default connect(null, mapDispatchToProps)(ContactForm);

@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ContactForm from './Components/ContactForm';
 import ContactList from './Components/ContactList';
 import Filter from './Components/Filter';
 
-function App({ totalContacts }) {
+export default function App() {
+  const totalContacts = useSelector(state => state.contacts.items.length);
+
    return (
     <div className="App">
       <h1>Phonebook</h1>
@@ -18,9 +20,7 @@ function App({ totalContacts }) {
     </div>        
   ); 
 }
-App.defaultProps = {
-  visibleContacts: null,
-}
+
 App.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape(
@@ -30,15 +30,7 @@ App.propTypes = {
         number: PropTypes.string.isRequired,
       })
   ),
-  filter: PropTypes.string,
   totalContacts: PropTypes.number,
-  visibleContacts: PropTypes.number,
 };
 
-const mapStateToProps = state => {
-  return {
-    filter: state.contacts.filter,
-    totalContacts: state.contacts.items.length,
-}};
 
-export default connect(mapStateToProps)(App);
