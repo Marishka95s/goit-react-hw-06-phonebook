@@ -31,7 +31,7 @@ function ContactForm({ onAddContact }) {
     }
 
     return(
-        <form className={styles.form} method="post">
+        <form className={styles.form} method="post" onSubmit={handleSubmit}>
             <label className={styles.label}>Name: 
             <input className={styles.input}
             type="text"
@@ -49,8 +49,8 @@ function ContactForm({ onAddContact }) {
                 title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +" 
                 className={styles.input} value={number} onChange={handleChange} required />
             </label>
-            <button type="button" 
-            className={styles.btn} onClick={handleSubmit}>
+            <button type="submit" 
+            className={styles.btn}>
                 Add contact
             </button>
         </form>
