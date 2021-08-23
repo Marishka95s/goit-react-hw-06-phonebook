@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
-import ContactsTypes from './contacts-types';
+import { createReducer } from "@reduxjs/toolkit";
+// import ContactsTypes from './contacts-types';
+import actions from './contacts-actions';
 
 const initialContacts = [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
@@ -8,35 +10,57 @@ const initialContacts = [
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ]
 
-const items = (state = (JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts), { type, payload }) => {
-    switch (type) {
-        case ContactsTypes.ADD:
-            const isInContacts = state.some(contact => contact.name === payload.name);
+// const items = (state = (JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts), { type, payload }) => {
+//     switch (type) {
+//         case ContactsTypes.ADD:
+//             const isInContacts = state.some(contact => contact.name === payload.name);
+//             if (isInContacts) { 
+//                 alert(`${payload.name} is already in contacts.`); return state;
+//             }
+//             const renewableState = [...state, payload];
+//             window.localStorage.setItem('contacts', JSON.stringify(renewableState));             
+//             return renewableState; 
+       
+//         case ContactsTypes.DELETE:
+//             const filtredState = state.filter(contact => contact.id !== payload)
+//             window.localStorage.setItem('contacts', JSON.stringify(filtredState));
+//             return filtredState;
+    
+//         default:
+//             return state;
+//     }
+// };
+const items = createReducer((JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts), {
+    [actions.addContact]: (state, { payload }) => {
+        const isInContacts = state.some(contact => contact.name === payload.name);
             if (isInContacts) { 
                 alert(`${payload.name} is already in contacts.`); return state;
             }
             const renewableState = [...state, payload];
             window.localStorage.setItem('contacts', JSON.stringify(renewableState));             
             return renewableState; 
-       
-        case ContactsTypes.DELETE:
-            const filtredState = state.filter(contact => contact.id !== payload)
+    },
+    [actions.deleteContact]: (state, { payload }) => {
+        const filtredState = state.filter(contact => contact.id !== payload)
             window.localStorage.setItem('contacts', JSON.stringify(filtredState));
             return filtredState;
-    
-        default:
-            return state;
     }
-};
+});
+           
 
-const filter = (state = '', { type, payload }) => {
-    switch (type) {
-        case ContactsTypes.CHANGE_FILTER:                     
-            return payload; 
+// const filter = (state = '', { type, payload }) => {
+//     switch (type) {
+//         case ContactsTypes.CHANGE_FILTER:                     
+//             return payload; 
        
-        default:
-            return state;
+//         default:
+//             return state;
+//     }
+// };
+const filter = createReducer('', {
+    [actions.changeFilter]: (_, { payload }) => {
+        return payload; 
     }
-};
+});
 
 export default combineReducers({ items, filter });
